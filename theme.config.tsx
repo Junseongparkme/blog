@@ -1,17 +1,27 @@
 import React from 'react';
 import { DocsThemeConfig } from 'nextra-theme-docs';
 
+const year = new Date().getFullYear();
+
 const config: DocsThemeConfig = {
+  docsRepositoryBase: 'https://github.com/UXev/nextra-blog',
+  useNextSeoProps: () => ({
+    titleTemplate: '%s - Archive',
+  }),
+  head: () => (
+    <>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta property="og:title" content="Archive" />
+      <meta property="og:description" content="UXev's Blog" />
+    </>
+  ),
   logo: <span>Archive</span>,
   project: {
-    link: '#',
+    link: 'https://github.com/UXev/nextra-blog',
   },
-  chat: {
-    link: 'https://discord.com',
-  },
-  docsRepositoryBase: 'https://github.com/UXev',
+
   footer: {
-    text: 'Nextra Docs Template',
+    text: `Junseong Park © ${year}`,
   },
 };
 

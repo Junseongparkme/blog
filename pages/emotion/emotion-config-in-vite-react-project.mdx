@@ -1,0 +1,47 @@
+# Vite + React 프로젝트에서 Emotion 설정하기
+
+## 문제
+
+`vite` + `React` 프로젝트에서 `@emotion/react`의 `css` 속성을 사용할 수 없습니다.
+
+## 해결 방법
+
+`@emotion/babel-plugin`를 설치합니다.
+
+```zsh copy
+pnpm i -D @emotion/babel-plugin
+```
+
+`vite.config.ts` 파일에서 하이라이팅 된 코드를 추가합니다.
+
+```ts {7-10} copy
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [
+    react({
+      jsxImportSource: '@emotion/react',
+      babel: {
+        plugins: ['@emotion/babel-plugin'],
+      },
+    }),
+  ],
+});
+```
+
+추가한 코드를 통해 기본 JSX 런타임 대신 Emotion의 JSX 함수를 사용하여 JSX를 컴파일 하므로 `css` 속성을 사용할 수 있게 해줍니다.
+
+## 타입스크립트 설정
+
+`TypeScript`는 아직 `css`가 유효한 속성인지 알지 못하기 때문에 에러를 발생시킵니다.
+
+`tsconfig.json` JSX 설정을 추가하여 Emotion의 타입을 사용하도록 지시합니다.
+
+```ts {3} copy
+{
+  "compilerOptions": {
+    "jsxImportSource": "@emotion/react"
+  }
+}
+```
